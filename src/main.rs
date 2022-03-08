@@ -34,8 +34,8 @@ fn fake_address() -> String {
 
 fn fail(flags: &Vec<(bool, char, &str)>) {
     println!("Usage: {} flags", env::args().collect::<Vec<String>>()[0]);
-    println!("The `flags` parameter is a sequence of characters each enabling a random field generation");
-    println!("By default its value is {}", flags_to_str(flags));
+    println!("The `flags` parameter is a sequence of characters each toggling the generation of a field");
+    println!("By default its value is `{}`", flags_to_str(flags));
     for flag in flags.iter() {
         println!("    {} \t\t{} (default: {:?})", flag.1, flag.2, flag.0);
     }
@@ -63,7 +63,7 @@ fn main() {
         for c in args[1].chars() {
             match flags.iter_mut().find(|flag| flag.1 == c) {
                 Some(e) => {
-                    e.0 = true;
+                    e.0 = !e.0;
                 },
                 None => {
                     println!("Invalid flag: '{}'", c);
